@@ -56,11 +56,42 @@ Using **IMREAD function** : Used to read image from the path given.
 
 Getting to know the original size with array by the function shape()
       
-     print(img_array.shape) #Output: (480, 640, 3)
+    print(img_array.shape) #Output: (480, 640, 3)
      
-Changing 
+
+
+Since neural networks receive inputs of the same size, all images need to be resized to a fixed size before inputting them to our CNN model. The larger the fixed size, the less shrinking required. Less shrinking means less deformation of features and patterns inside the image.
+Changing (480, 640, 3) original size to (240, 240, 3) new size.
 
     new_img = cv2.resize(test_array,(img_size,img_size))
     print(new_img.shape)
     plt.imshow(new_img)
     plt.show()
+
+
+
+Organizing and appending both Training Image Data with class number into a list. This is used later in the training model.  
+
+
+    training_data = []
+    i = 0
+    def create_training_data():
+        for category in classes:
+            path = os.path.join(directory,category)
+            class_num = classes.index(category)
+            for img in os.listdir(path):
+                img_array = cv2.imread(os.path.join(path,img),cv2.IMREAD_COLOR)
+                RGB_img = cv2.cvtColor(img_array, cv2.COLOR_BGR2RGB)
+                new_img = cv2.resize(RGB_img,(img_size,img_size))
+                training_data.append([new_img,class_num])
+    create_training_data()
+
+
+
+
+    import random
+    random.shuffle(training_data)
+    x = []
+    y = []
+
+
