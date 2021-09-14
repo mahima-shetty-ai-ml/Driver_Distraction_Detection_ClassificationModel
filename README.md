@@ -87,11 +87,60 @@ Organizing and appending both Training Image Data with class number into a list.
     create_training_data()
 
 
-
+Random Shuffling the training data. Data Shuffling. Simply put, shuffling techniques aim to mix up the data and can optionally preserve logical relationships between columns. It randomly shuffles data from a dataset within an series of attribute or a set of attributes.
 
     import random
     random.shuffle(training_data)
     x = []
     y = []
 
+For every feature and label pair in training data. Then we will append those seperately to list1 x and list2 y.
 
+    for features, label in training_data:
+        x.append(features)
+        y.append(label)
+        
+Subseting the data First 2242 records.
+
+    x = x[:2242]
+    y = y[:2242]
+    
+Resizing the data into size (240, 240)    
+    
+    import numpy as np 
+    import pandas as pd 
+    x = np.array(x).reshape(-1,img_size,img_size,3)
+    x[0].shape #Output: (240, 240, 3)
+    
+# Begin Training the data
+
+Splitting the data using train_test_split from sklearn model_selection module.  Taking Train-Test data ratio 70% - 30%.
+
+    from sklearn.model_selection import train_test_split
+    x_train,x_test,y_train,y_test = train_test_split(x,y,test_size=0.3,random_state=96)
+
+
+Importing Packages and modules from Tensorflow, Keras. From these packages, modules like datasets, layers, models, callbacks & Conv2D, MaxPooling2D, Dense, DropOut, Flatten, Activation, Batch Normalization.   
+
+Tensorflow: It is an OPEN SOURCE AI library, using data flow graphs to build models. It allows developers to create large-scale neural networks (NN) with many layers. TensorFlow is mainly used for: 
+
+
+Classification </br> 
+Deep learning NN are an example of an algorithm that natively supports multi label classification problems. Neural network models for multi label classification tasks can be easily defined and evaluated using the Keras deep learning library. </br>
+Perception </br> Machine Perception refers to the added functionality in computer systems that enables reaction based on senses, similar to human perception. We imported CV2 ie. OpenCV which does the relatively major job of perception. </br>
+Understanding </br> 
+Discovering
+Prediction
+Creation.
+
+
+    !pip install keras-utils
+    import keras
+    import keras_utils
+    from keras.utils import to_categorical
+
+    from tensorflow.keras import datasets, layers, models, callbacks
+    from tensorflow.keras.layers import Conv2D, MaxPooling2D, Dense, Dropout, Flatten, Activation, BatchNormalization
+
+Y_train = to_categorical(y_train,num_classes=10)
+Y_test = to_categorical(y_test,num_classes=10)
