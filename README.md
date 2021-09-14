@@ -235,3 +235,163 @@ Image Credit **https://gfycat.com/gifs/search/batch+normalization**
 
 Softmax</br>The softmax function is used as the activation function in the output layer of neural network models that predict a multinomial probability  </br></br>
 Categorical crossentropy</br>Categorical crossentropy is a loss function that is used in multi-class classification tasks. These are tasks where an example can only belong to one out of many possible categories, and the model must decide which one. Formally, it is designed to quantify the difference between two probability distributions. </br></br>
+
+To check the model summary</br>
+
+        model.summary()
+</br> The Output</br></br>
+
+        Model: "sequential"
+        _________________________________________________________________
+        Layer (type)                 Output Shape              Param #   
+        =================================================================
+        conv2d (Conv2D)              (None, 238, 238, 32)      896       
+        _________________________________________________________________
+        batch_normalization (BatchNo (None, 238, 238, 32)      128       
+        _________________________________________________________________
+        conv2d_1 (Conv2D)            (None, 238, 238, 32)      9248      
+        _________________________________________________________________
+        batch_normalization_1 (Batch (None, 238, 238, 32)      128       
+        _________________________________________________________________
+        max_pooling2d (MaxPooling2D) (None, 119, 119, 32)      0         
+        _________________________________________________________________
+        dropout (Dropout)            (None, 119, 119, 32)      0         
+        _________________________________________________________________
+        conv2d_2 (Conv2D)            (None, 119, 119, 64)      18496     
+        _________________________________________________________________
+        batch_normalization_2 (Batch (None, 119, 119, 64)      256       
+        _________________________________________________________________
+        conv2d_3 (Conv2D)            (None, 119, 119, 64)      36928     
+        _________________________________________________________________
+        batch_normalization_3 (Batch (None, 119, 119, 64)      256       
+        _________________________________________________________________
+        max_pooling2d_1 (MaxPooling2 (None, 60, 60, 64)        0         
+        _________________________________________________________________
+        dropout_1 (Dropout)          (None, 60, 60, 64)        0         
+        _________________________________________________________________
+        conv2d_4 (Conv2D)            (None, 60, 60, 128)       73856     
+        _________________________________________________________________
+        batch_normalization_4 (Batch (None, 60, 60, 128)       512       
+        _________________________________________________________________
+        conv2d_5 (Conv2D)            (None, 60, 60, 128)       147584    
+        _________________________________________________________________
+        batch_normalization_5 (Batch (None, 60, 60, 128)       512       
+        _________________________________________________________________
+        max_pooling2d_2 (MaxPooling2 (None, 30, 30, 128)       0         
+        _________________________________________________________________
+        dropout_2 (Dropout)          (None, 30, 30, 128)       0         
+        _________________________________________________________________
+        flatten (Flatten)            (None, 115200)            0         
+        _________________________________________________________________
+        dense (Dense)                (None, 512)               58982912  
+        _________________________________________________________________
+        batch_normalization_6 (Batch (None, 512)               2048      
+        _________________________________________________________________
+        dropout_3 (Dropout)          (None, 512)               0         
+        _________________________________________________________________
+        dense_1 (Dense)              (None, 128)               65664     
+        _________________________________________________________________
+        dropout_4 (Dropout)          (None, 128)               0         
+        _________________________________________________________________
+        dense_2 (Dense)              (None, 10)                1290      
+        =================================================================
+        Total params: 59,340,714
+        Trainable params: 59,338,794
+        Non-trainable params: 1,920
+
+</br>Compiling the model with loss of categorical crossentropy and adam optimizer as the optimizer. Metric as 'Accuracy'.</br>
+
+Choosing Optimization algorithm...</br>
+Optimization algorithms to train the neural network by optimizing the cost function. </br>
+The cost function is defined as: The value of cost function is the mean of the loss between the predicted value and actual value.
+</br>
+Stochastic Gradient descent</br> 
+The only absolute difference comes while iterating. In Normal Gradient Descent, we consider all the points at once in calculating loss and derivative, while on the other hand in Stochastic gradient descent, we use single point in loss function and its derivative randomly.</br>
+
+AdaGrad</br>
+The Momentum method uses the first moment with a decay rate to gain speed. AdaGrad uses the second moment with no decay to deal with sparse features. RMSProp uses the second moment by with a decay rate to speed up from AdaGrad. Adam uses both first and second moments, and is generally the best choice.
+</br>
+
+Why Adam?</br>
+Adam is a replacement optimization algorithm for stochastic gradient descent for training deep learning models. Adam combines the best properties of the AdaGrad and RMSProp algorithms to provide an optimization algorithm that can handle sparse gradients on noisy problems.</br></br>
+
+Adam optimizer involves a comprehensive combination of 2 gradient descent methodologies</br></br>
+1. Momentum - This method is used to accelerate the gradient descent algorithm by taking into consideration the exponentially weighted average of the gradients.</br>
+2. Root Mean Square Propagation (RMSP)- RMSprop was proposed by University of Toronto’s Geoffrey Hinton. The intuition is to apply an exponentially weighted average method to the second moment of the gradients </br>
+
+    model.compile(loss='categorical_crossentropy',metrics=['accuracy'],optimizer='adam')
+    callback = [callbacks.EarlyStopping(monitor='val_accuracy',patience=5)]
+    batch_size = 40
+    n_epochs = 10
+
+
+## Fitting the model
+
+    results = model.fit(x_train,Y_train,
+                        batch_size=batch_size,epochs=n_epochs,
+                        verbose=1,
+                        validation_data=(x_test,Y_test),
+                        callbacks=callback)
+
+
+## Plotting and print the accuarcy 
+
+    plt.plot(results.history['accuracy'])
+    plt.plot(results.history['val_accuracy'])
+    plt.title('Model accuracy')
+    plt.ylabel('Accuracy')
+    plt.xlabel('Epoch')
+    plt.legend(['Train', 'Test'], loc='lower right')
+    plt.show()
+
+    # Plot training & validation loss values
+    plt.plot(results.history['loss'])
+    plt.plot(results.history['val_loss'])
+    plt.title('Model loss')
+    plt.ylabel('Loss')
+    plt.xlabel('Epoch')
+    plt.legend(['Train', 'Test'], loc='upper right')
+    plt.show()
+
+</br>
+
+## Predicting the classes using predict_classes
+
+</br>
+The function uses probablity to do so and assign classes for respective predictions.</br>
+
+    pred= model.predict_classes(x_test)
+
+
+# Checking the Accuracy of Model with Classification report
+
+    from sklearn.metrics import classification_report 
+    print(classification_report(y_test, pred))
+
+                     precision    recall  f1-score   support
+
+               0       0.88      1.00      0.94        66
+               1       1.00      0.98      0.99        83
+               2       0.99      0.94      0.96        70
+               3       0.94      0.97      0.96        79
+               4       0.90      0.92      0.91        59
+               5       0.95      0.97      0.96        58
+               6       0.96      0.93      0.94        81
+               7       1.00      0.92      0.96        60
+               8       0.74      0.94      0.83        51
+               9       1.00      0.77      0.87        66
+
+        accuracy                           0.93       673
+       macro avg       0.94      0.93      0.93       673
+    weighted avg       0.94      0.93      0.94       673
+
+![harmonic_mean](https://user-images.githubusercontent.com/41589522/133220811-1419e118-4cbf-447d-be8a-35fb9d7c18e9.gif)
+Image Credit: **Semantic Error-Why Harmonic Mean is used to calculate F1-Measure? – Semantic Error**
+
+
+## Saving the model and weights
+
+    model.save_weights('./driverdistraction_lr_weights.h5', overwrite=True)
+    
+    model.save('./driverdistraction.h5')
+
