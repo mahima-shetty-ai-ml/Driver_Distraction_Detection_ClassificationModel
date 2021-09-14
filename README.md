@@ -233,4 +233,5 @@ Batch Normalization</br> Batch normalization is a layer that allows every layer 
 
 Image Credit **https://gfycat.com/gifs/search/batch+normalization**
 
-Softmax</brThe softmax function is used as the activation function in the output layer of neural network models that predict a multinomial probability > </br></br> Categorical crossentropy
+Softmax</br>The softmax function is used as the activation function in the output layer of neural network models that predict a multinomial probability  </br></br>
+Categorical crossentropy</br>Categorical crossentropy is a loss function that is used in multi-class classification tasks. These are tasks where an example can only belong to one out of many possible categories, and the model must decide which one. Formally, it is designed to quantify the difference between two probability distributions. </br></br>
