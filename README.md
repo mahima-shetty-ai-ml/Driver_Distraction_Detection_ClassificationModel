@@ -126,9 +126,9 @@ Tensorflow: It is an OPEN SOURCE AI library, using data flow graphs to build mod
 
 
 Classification </br> 
-Deep learning NN are an example of an algorithm that natively supports multi label classification problems. Neural network models for multi label classification tasks can be easily defined and evaluated using the Keras deep learning library. </br>
-Perception </br> Machine Perception refers to the added functionality in computer systems that enables reaction based on senses, similar to human perception. We imported CV2 ie. OpenCV which does the relatively major job of perception. </br>
-Understanding </br> 
+Deep learning NN are an example of an algorithm that natively supports multi label classification problems. Neural network models for multi label classification tasks can be easily defined and evaluated using the Keras deep learning library. </br> </br>
+Perception </br> Machine Perception refers to the added functionality in computer systems that enables reaction based on senses, similar to human perception. We imported CV2 ie. OpenCV which does the relatively major job of perception. </br> </br>
+Understanding </br> Deep learning works on the principle of extracting features from the raw data by using multiple layers for identifying different criteria relevant to I/p data. Deep learning techniques include CNN, RNN, and deep NN. </br> </br>
 Discovering
 Prediction
 Creation.
