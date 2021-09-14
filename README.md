@@ -123,15 +123,14 @@ Splitting the data using train_test_split from sklearn model_selection module.  
 Importing Packages and modules from Tensorflow, Keras. From these packages, modules like datasets, layers, models, callbacks & Conv2D, MaxPooling2D, Dense, DropOut, Flatten, Activation, Batch Normalization.   
 
 Tensorflow: It is an OPEN SOURCE AI library, using data flow graphs to build models. It allows developers to create large-scale neural networks (NN) with many layers. TensorFlow is mainly used for: 
-
+</br></br>
 
 Classification </br> 
 Deep learning NN are an example of an algorithm that natively supports multi label classification problems. Neural network models for multi label classification tasks can be easily defined and evaluated using the Keras deep learning library. </br> </br>
 Perception </br> Machine Perception refers to the added functionality in computer systems that enables reaction based on senses, similar to human perception. We imported CV2 ie. OpenCV which does the relatively major job of perception. </br> </br>
-Understanding </br> Deep learning works on the principle of extracting features from the raw data by using multiple layers for identifying different criteria relevant to I/p data. Deep learning techniques include CNN, RNN, and deep NN. </br> </br>
-Discovering
-Prediction
-Creation.
+Understanding </br> Deep learning works on the principle of extracting features from the raw data by using multiple layers linke CNN, RNN, DropOut layer etc. for identifying different criteria relevant to I/p data. Deep learning techniques include CNN, RNN, and deep NN. </br> </br>
+Prediction</br> It refers to the output of an Deep learning algorithm after it has been trained on our image dataset and applied to new testing data which we split during the beginning of deep learning training part when forecasting the likelihood of a particular outcome, such as whether the driver is safe driving, in our case and if not what other activities the driver is doing.  </br></br>
+Creation.</br> Creation of Deep learning model for predictions and muulti class classification </br> </br>
 
 
     !pip install keras-utils
@@ -142,5 +141,90 @@ Creation.
     from tensorflow.keras import datasets, layers, models, callbacks
     from tensorflow.keras.layers import Conv2D, MaxPooling2D, Dense, Dropout, Flatten, Activation, BatchNormalization
 
-Y_train = to_categorical(y_train,num_classes=10)
-Y_test = to_categorical(y_test,num_classes=10)
+</br>
+Keras</br> Keras is a useful deep learning API written in Python, running on above the machine learning platform TensorFlow TF.</br><?br>
+
+Callbacks</br>A callback function is a function passed into another function as an argument, which is then revoked inside the outermost function to complete some sort of routine or action. In deep learning, a callback is a function that can perform actions at various stages of training (e.g. at the start or end of an epoch, before or after a single batch, etc). </br></br>
+
+Convolution</br> In image processing, convolution is the process of transforming an image by applying a kernel over each pixel and its local neighbors across the entire image.</br></br>
+
+Conv2D</br>Keras Conv2D is a 2D Convolution Layer, the layer create a convolution kernel that is filled with layers input which helps to produce a tensor of outputs.
+
+Kernel: In image processing kernel is a convolution matrix or masks which can be used for blurring, sharpening, embossing, edge detection, and more by doing a convolution between a kernel and an image. </br></br>
+![convSobel](https://user-images.githubusercontent.com/41589522/133200140-163ea103-c31f-4a62-8462-c4492696a272.gif)</br>    
+Image credit: **https://mlnotebook.github.io/post/CNN1/**
+</br>
+MaxPooling</br> Max pooling, is a pooling operation that calculates the maximum value in each patch of each feature orattribute map.</br></br>
+![Pooling](https://user-images.githubusercontent.com/41589522/133200396-758d1e3f-587a-46d0-b3ca-0d811b565f2b.gif)
+
+Dense</br>Dense layer is the regular deeply connected neural network layer. It is most common and frequently used layer.</br></br>
+
+Image Credit **https://medium.com/analytics-vidhya/your-handbook-to-convolutional-neural-networks-628782b68f7e**</br>
+
+DropOut</br>Drop out layer was added to account for overfitting.</br></br>
+
+<!-- ![image](https://user-images.githubusercontent.com/41589522/133201197-f9f69b91-35cb-4972-bd90-2c57dab656d2.png)</br> -->
+![dropout](https://user-images.githubusercontent.com/41589522/133201681-b1546a1f-0f4e-471f-adb4-d67e3357bd54.gif)
+</br></br>
+Image Credit **https://nagadakos.github.io/2018/09/23/dropout-effect-discussion/**</br>
+
+
+Making Y tain and test categorical</br>
+
+        Y_train = to_categorical(y_train,num_classes=10)
+        Y_test = to_categorical(y_test,num_classes=10)
+
+</br></br>
+
+Building Sequential Model with Convolutional Neural Networks</br>
+
+A Sequential model is appropriate for a plain stack of layers where each layer has exactly one input tensor and one output tensor. We use the 'add()' function to add layers to our model. We will add two layers and an output layer.</br></br>
+
+    model = models.Sequential()
+    ## CNN 1
+    model.add(Conv2D(32,(3,3),activation='relu',input_shape=(240,240,3)))
+    model.add(BatchNormalization())
+    model.add(Conv2D(32,(3,3),activation='relu',padding='same'))
+    model.add(BatchNormalization(axis = 3))
+    model.add(MaxPooling2D(pool_size=(2,2),padding='same'))
+    model.add(Dropout(0.3))
+    ## CNN 2
+    model.add(Conv2D(64,(3,3),activation='relu',padding='same'))
+    model.add(BatchNormalization())
+    model.add(Conv2D(64,(3,3),activation='relu',padding='same'))
+    model.add(BatchNormalization(axis = 3))
+    model.add(MaxPooling2D(pool_size=(2,2),padding='same'))
+    model.add(Dropout(0.3))
+    ## CNN 3
+    model.add(Conv2D(128,(3,3),activation='relu',padding='same'))
+    model.add(BatchNormalization())
+    model.add(Conv2D(128,(3,3),activation='relu',padding='same'))
+    model.add(BatchNormalization(axis = 3))
+    model.add(MaxPooling2D(pool_size=(2,2),padding='same'))
+    model.add(Dropout(0.5))
+    ## Dense & Output
+    model.add(Flatten())
+    model.add(Dense(units = 512,activation='relu'))
+    model.add(BatchNormalization())
+    model.add(Dropout(0.5))
+    model.add(Dense(units = 128,activation='relu'))
+    model.add(Dropout(0.25))
+    model.add(Dense(10,activation='softmax'))
+
+
+![giphy](https://user-images.githubusercontent.com/41589522/133202326-9ebf7e9d-83a9-4a2b-b918-e990914d53f9.gif)</br>
+Image Credit: **https://www.kaggle.com/abhinand05/in-depth-guide-to-convolutional-neural-networks**
+
+
+
+
+Relu Activation</br> The rectified linear activation function or ReLU for short is a piecewise linear function that will output the input directly if it is positive, otherwise, it will output zero.</br></br>
+
+<!-- ![download](https://user-images.githubusercontent.com/41589522/133202890-3453204c-e9fa-41f1-89ea-f9d7ee03f67f.png) -->!
+
+[1_w48zY6o9_5W9iesSsNabmQ](https://user-images.githubusercontent.com/41589522/133203064-974af5dd-cf7c-45aa-a906-2b306e1c2703.gif)
+Image Credit **https://medium.com/ai%C2%B3-theory-practice-business/magic-behind-activation-function-c6fbc5e36a92**
+
+Batch Normalization
+ 
+Softmax Categorical crossentropy
