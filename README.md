@@ -220,11 +220,17 @@ Image Credit: **https://www.kaggle.com/abhinand05/in-depth-guide-to-convolutiona
 
 Relu Activation</br> The rectified linear activation function or ReLU for short is a piecewise linear function that will output the input directly if it is positive, otherwise, it will output zero.</br></br>
 
-<!-- ![download](https://user-images.githubusercontent.com/41589522/133202890-3453204c-e9fa-41f1-89ea-f9d7ee03f67f.png) -->!
 
-[1_w48zY6o9_5W9iesSsNabmQ](https://user-images.githubusercontent.com/41589522/133203064-974af5dd-cf7c-45aa-a906-2b306e1c2703.gif)
+![1_w48zY6o9_5W9iesSsNabmQ](https://user-images.githubusercontent.com/41589522/133204317-6704ae05-7874-4977-a087-2c345826eb4c.gif)
+
+
 Image Credit **https://medium.com/ai%C2%B3-theory-practice-business/magic-behind-activation-function-c6fbc5e36a92**
+</br>
+Batch Normalization</br> Batch normalization is a layer that allows every layer of the network to do learning more independently. It is used to normalize the output of the previous layers. Using batch normalization learning becomes efficient also it can be used as regularization to avoid overfitting of the model.</br></br>
 
-Batch Normalization
- 
+
+![AbandonedFrayedAmericanriverotter-size_restricted](https://user-images.githubusercontent.com/41589522/133204939-783c2e58-1958-4778-8993-212bf4b61989.gif)
+
+Image Credit **https://gfycat.com/gifs/search/batch+normalization**
+
 Softmax Categorical crossentropy
