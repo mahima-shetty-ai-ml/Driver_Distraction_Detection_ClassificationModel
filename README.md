@@ -233,4 +233,4 @@ Batch Normalization</br> Batch normalization is a layer that allows every layer 
 
 Image Credit **https://gfycat.com/gifs/search/batch+normalization**
 
-Softmax Categorical crossentropy
+Softmax</brThe softmax function is used as the activation function in the output layer of neural network models that predict a multinomial probability > </br></br> Categorical crossentropy
